@@ -1,6 +1,5 @@
 package ru.kostopraff.dreamless;
 
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.service.dreams.DreamService;
 import android.widget.ImageView;
