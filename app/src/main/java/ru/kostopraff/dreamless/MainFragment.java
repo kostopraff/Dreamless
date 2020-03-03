@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
                 try {
                     getFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.replace, SambaFragment.class.newInstance())
+                            .replace(R.id.bottom_replace, SambaFragment.class.newInstance())
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .addToBackStack(null)
                             .commit();

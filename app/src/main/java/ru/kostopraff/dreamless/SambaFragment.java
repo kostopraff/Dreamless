@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 public class SambaFragment extends Fragment {
 
     public SambaFragment(){
-
     }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

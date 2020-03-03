@@ -10,60 +10,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="272dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="448dp"
         android:text="Waiting..."
         app:layout_constraintBottom_toTopOf="@+id/address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <EditText
-        android:id="@+id/pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="169dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintVertical_bias="0.212" />
 
     <EditText
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="184dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="372dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Server"
-        app:layout_constraintBottom_toBottomOf="@+id/login"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:hint="Server"
+        android:inputType="textUri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/success" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="191dp"
-        android:layout_height="103dp"
-        android:layout_marginStart="141dp"
-        android:layout_marginTop="210dp"
-        android:clickable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/app_icon_your_company" />
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="372dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <EditText
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="184dp"
+        android:layout_marginEnd="372dp"
         android:ems="10"
+        android:hint="Login"
         android:inputType="textPersonName"
-        android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/pass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="191dp"
+        android:layout_height="103dp"
+        android:layout_marginStart="384dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="385dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/app_icon_your_company" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
