@@ -32,11 +32,14 @@ public class MainFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
 
-        ConnectionFromList connection = new ConnectionFromList();
-        connection.setIcon(1);
-        connection.setName("Samba");
-        connections.add(connection);
-
+        ConnectionFromList smbConnection = new ConnectionFromList();
+        smbConnection.setIcon(1);
+        smbConnection.setName("Samba");
+        connections.add(smbConnection);
+        ConnectionFromList galleryConnection = new ConnectionFromList();
+        galleryConnection.setIcon(2);
+        galleryConnection.setName("Gallery");
+        connections.add(galleryConnection);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(itemAnimator);

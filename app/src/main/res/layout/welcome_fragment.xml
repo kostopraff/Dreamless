@@ -5,7 +5,6 @@
     android:id="@+id/constraint_welcome"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
     tools:context=".WelcomeFragment">
 
     <androidx.appcompat.widget.AppCompatImageButton
