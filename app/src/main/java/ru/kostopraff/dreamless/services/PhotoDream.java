@@ -1,10 +1,12 @@
-package ru.kostopraff.dreamless;
+package ru.kostopraff.dreamless.services;
 
 import android.os.Build;
 import android.service.dreams.DreamService;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
+
+import ru.kostopraff.dreamless.R;
 
 public class PhotoDream extends DreamService {
 
@@ -16,11 +18,10 @@ public class PhotoDream extends DreamService {
         super.onAttachedToWindow();
         setFullscreen(true);
         setInteractive(false);
+        setContentView(R.layout.dream_photo);
 
-        imageView = new ImageView(this);
-        setContentView(imageView);
+        imageView = findViewById(R.id.dream_photo);
         imageView.setImageResource(R.drawable.test_squirrel);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
 }

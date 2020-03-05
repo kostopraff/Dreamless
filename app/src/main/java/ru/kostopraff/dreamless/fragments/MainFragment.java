@@ -1,4 +1,4 @@
-package ru.kostopraff.dreamless;
+package ru.kostopraff.dreamless.fragments;
 
 import android.os.Bundle;
 
@@ -15,6 +15,10 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.kostopraff.dreamless.ConnectionFromList;
+import ru.kostopraff.dreamless.ConnectionsListAdapter;
+import ru.kostopraff.dreamless.R;
 
 public class MainFragment extends Fragment {
     public MainFragment() {

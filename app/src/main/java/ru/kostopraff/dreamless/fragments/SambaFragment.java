@@ -1,4 +1,4 @@
-package ru.kostopraff.dreamless;
+package ru.kostopraff.dreamless.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+
+import ru.kostopraff.dreamless.R;
 
 public class SambaFragment extends Fragment {
 

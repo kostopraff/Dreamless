@@ -1,4 +1,4 @@
-package ru.kostopraff.dreamless;
+package ru.kostopraff.dreamless.fragments;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ru.kostopraff.dreamless.R;
+import ru.kostopraff.dreamless.fragments.MainFragment;
 
 public class WelcomeFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package ru.kostopraff.dreamless;
+package ru.kostopraff.dreamless.activities;
 
 import android.animation.LayoutTransition;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentTransaction;
+
+import ru.kostopraff.dreamless.R;
+import ru.kostopraff.dreamless.fragments.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 

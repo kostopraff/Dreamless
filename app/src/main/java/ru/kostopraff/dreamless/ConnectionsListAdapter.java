@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ru.kostopraff.dreamless.fragments.SambaFragment;
+
 public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsListAdapter.ViewHolder> {
 
     private List<ConnectionFromList> connectionsList;

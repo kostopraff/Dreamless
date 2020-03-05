@@ -3,7 +3,7 @@
     android:id="@+id/itemConnectionRoot"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:background="#37FFFFFF"
+    android:background="@drawable/items_bg"
     android:clickable="true"
     android:focusable="true"
     android:orientation="horizontal">
