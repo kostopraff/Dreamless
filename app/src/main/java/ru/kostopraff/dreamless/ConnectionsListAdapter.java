@@ -1,6 +1,7 @@
 package ru.kostopraff.dreamless;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.kostopraff.dreamless.fragments.SambaFragment;
+
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsListAdapter.ViewHolder> {
 
@@ -61,6 +64,7 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(context, "Fool!", Toast.LENGTH_SHORT).show();
+
                     }
                 };
             }
