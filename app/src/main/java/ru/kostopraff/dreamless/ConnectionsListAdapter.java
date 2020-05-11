@@ -1,7 +1,10 @@
 package ru.kostopraff.dreamless;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ru.kostopraff.dreamless.fragments.SambaFragment;
+import ru.kostopraff.dreamless.fragments.SambaServersListFragment;
 
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
@@ -25,6 +29,7 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
 
     private List<ConnectionFromList> connectionsList;
     private Context context;
+    private static final int GET_IMAGES = 1;
 
     public ConnectionsListAdapter(List<ConnectionFromList> connections, Context context) {
         this.connectionsList = connections;
@@ -52,7 +57,7 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
                         ((AppCompatActivity) context).getSupportFragmentManager()
                                 .beginTransaction()
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .replace(R.id.bottom_replace, new SambaFragment())
+                                .replace(R.id.bottom_replace, new SambaServersListFragment(context))
                                 .addToBackStack(null)
                                 .commit();
                     }
@@ -65,6 +70,11 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
                     public void onClick(View v) {
                         Toast.makeText(context, "Fool!", Toast.LENGTH_SHORT).show();
 
+                        Intent i = new Intent(Intent.ACTION_PICK);
+                        i.setType("image/*")
+                                .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                                .addCategory(Intent.CATEGORY_OPENABLE);
+                        ((Activity) context).startActivityForResult(Intent.createChooser(i, "Choose"), GET_IMAGES);
                     }
                 };
             }

@@ -26,8 +26,19 @@
         </activity>
 
         <service
-            android:label="Dreamless.Samba"
-            android:name=".PhotoDream"
+            android:label="Dreamless.Picsum"
+            android:name=".DreamPicsum"
+            android:exported="true"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:label="Dreamless.Gallery"
+            android:name=".services.DreamGallery"
             android:exported="true"
             android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>

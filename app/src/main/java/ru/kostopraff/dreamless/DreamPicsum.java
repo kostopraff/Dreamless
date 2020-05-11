@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PhotoDream extends DreamService {
+public class DreamPicsum extends DreamService {
 
     private ImageView imageView;
     private Drawable drawable;
