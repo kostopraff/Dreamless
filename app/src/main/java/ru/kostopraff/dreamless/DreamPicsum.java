@@ -6,8 +6,14 @@ import android.os.Build;
 import android.os.Handler;
 import android.service.dreams.DreamService;
 import android.view.Display;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextClock;
+
 import androidx.annotation.RequiresApi;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.Random;
 import java.util.Timer;
@@ -33,7 +39,7 @@ public class DreamPicsum extends DreamService {
         height = size.y;
 
         imageView = findViewById(R.id.dream_photo);
-        imageView.setImageResource(R.drawable.test_squirrel);
+        imageView.setImageResource(R.drawable.dreamless_tv_banner);
     }
 
     @Override
@@ -49,13 +55,16 @@ public class DreamPicsum extends DreamService {
                     @Override
                     public void run() {
                         Picasso.get()
-                                .load("https://picsum.photos/"+width+"/"+height+"?random="+new Random().nextInt())
+                                .load("https://picsum.photos/"+width+"/"+height)
                                 .placeholder(drawable)
                                 .priority(Picasso.Priority.HIGH)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
                                 .into(imageView);
                     }
                 });
+
             }
-        },0,60000);
+        },0,10000);
     }
 }

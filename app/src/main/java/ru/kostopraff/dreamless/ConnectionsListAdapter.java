@@ -1,10 +1,8 @@
 package ru.kostopraff.dreamless;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-
-import ru.kostopraff.dreamless.fragments.SambaFragment;
-import ru.kostopraff.dreamless.fragments.SambaServersListFragment;
-
-import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsListAdapter.ViewHolder> {
 
@@ -50,7 +41,7 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
         holder.icon.setImageResource(R.drawable.test_squirrel);
         View.OnClickListener clickListener;
         switch (connection.getName()){
-            case "Samba": {
+            /*case "Samba": {
                 clickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -63,7 +54,7 @@ public class ConnectionsListAdapter extends RecyclerView.Adapter<ConnectionsList
                     }
                 };
                 break;
-            }
+            }*/
             default: {
                 clickListener = new View.OnClickListener() {
                     @Override

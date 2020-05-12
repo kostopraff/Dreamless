@@ -4,7 +4,7 @@
         android:drawable="@color/default_background"/>
     <item>
         <bitmap
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+            android:gravity="fill"
+            android:src="@drawable/dreamless_tv_banner"/>
     </item>
 </layer-list>
