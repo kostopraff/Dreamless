@@ -39,7 +39,14 @@ public class DreamPicsum extends DreamService {
         height = size.y;
 
         imageView = findViewById(R.id.dream_photo);
-        imageView.setImageResource(R.drawable.dreamless_tv_banner);
+        switch (height){
+            case 720:
+                imageView.setImageResource(R.drawable.dreamless_banner_720);
+            case 1080:
+                imageView.setImageResource(R.drawable.dreamless_banner_1080);
+            case 2160:
+                imageView.setImageResource(R.drawable.dreamless_banner_4k);
+        }
     }
 
     @Override

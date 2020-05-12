@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="fill"
-            android:src="@drawable/dreamless_tv_banner"/>
+            android:src="@drawable/dreamless_banner_1080"/>
     </item>
 </layer-list>
