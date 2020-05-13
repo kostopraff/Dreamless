@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import ru.kostopraff.dreamless.activities.MainActivity;
-
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -14,5 +12,9 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         startActivity(new Intent(this, MainActivity.class));
         finish();
+
+        /*Intent intentDream = new Intent(Intent.ACTION_MAIN);
+        intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
+        startActivity(intentDream);*/
     }
 }

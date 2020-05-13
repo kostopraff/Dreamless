@@ -9,7 +9,7 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.leanback.app.BrowseFragment;
+import androidx.leanback.app.BrowseSupportFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ListRow;
@@ -22,7 +22,7 @@ import androidx.leanback.widget.RowPresenter;
 import ru.kostopraff.dreamless.R;
 import ru.kostopraff.dreamless.activities.GuidedStepActivity;
 
-public class MainFragment extends BrowseFragment {
+public class MainFragment extends BrowseSupportFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private ArrayObjectAdapter mRowsAdapter;
@@ -62,6 +62,7 @@ public class MainFragment extends BrowseFragment {
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
         gridRowAdapter.add("Мастер первоначальной настройки");
+        gridRowAdapter.add("Start Dream");
         mRowsAdapter.add(new ListRow(gridItemPresenterHeader, gridRowAdapter));
 
         /* set */
@@ -101,6 +102,11 @@ public class MainFragment extends BrowseFragment {
                 if (item == "Мастер первоначальной настройки") {
                     Intent intent = new Intent(getActivity(), GuidedStepActivity.class);
                     startActivity(intent);
+                }
+                else if (item == "Start Dream"){
+                    Intent intentDream = new Intent(Intent.ACTION_MAIN);
+                    intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
+                    startActivity(intentDream);
                 }
             }
         }
