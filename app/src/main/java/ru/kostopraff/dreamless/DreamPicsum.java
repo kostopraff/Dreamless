@@ -1,14 +1,18 @@
 package ru.kostopraff.dreamless;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.service.dreams.DreamService;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.TextClock;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -32,6 +36,7 @@ import ru.kostopraff.dreamless.activities.ErrorActivity;
 public class DreamPicsum extends DreamService {
 
     private AppCompatImageView imageView;
+    private TextClock date, time;
     private AppCompatImageView vkNotificationIcon;
     private Drawable drawable;
     private Timer timer;
@@ -39,6 +44,7 @@ public class DreamPicsum extends DreamService {
     private int notificationCount = 0;
     private static final String [] FIELDS = {"friends", "messages", "photos", "videos", "notes", "gifts",
             "events", "groups", "notifications", "sdk", "app_requests"};
+    private SharedPreferences mSharedPreferences;
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -48,6 +54,17 @@ public class DreamPicsum extends DreamService {
         setInteractive(false);
         setContentView(R.layout.dream_photo);
 
+        mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
+        date = findViewById(R.id.dream_date);
+        time = findViewById(R.id.dream_time);
+        switch (mSharedPreferences.getInt("FORMAT_HTIME", 24)) {
+            case 24:{
+                time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "HH:mm"));
+            }
+            case 12:{
+                time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "hh:mm a"));
+            }
+        }
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -91,7 +108,7 @@ public class DreamPicsum extends DreamService {
                     }
                 });
             }
-        },0,10000);
+        },0,30000);
 
         timer.schedule(new TimerTask() {
             @Override

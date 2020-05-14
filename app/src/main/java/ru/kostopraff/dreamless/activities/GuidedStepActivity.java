@@ -1,6 +1,8 @@
 package ru.kostopraff.dreamless.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +32,8 @@ public class GuidedStepActivity extends FragmentActivity {
 
     private static final String TAG = GuidedStepActivity.class.getSimpleName();
 
+    private static SharedPreferences mSharedPreferences;
+
     /* Action ID definition */
     private static final int ACTION_CONTINUE = 0;
     private static final int ACTION_BACK = 1;
@@ -40,6 +44,7 @@ public class GuidedStepActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
         if (null == savedInstanceState) {
             GuidedStepSupportFragment.addAsRoot(this, new StartFragment(), android.R.id.content);
         }
@@ -94,7 +99,7 @@ public class GuidedStepActivity extends FragmentActivity {
         public void onGuidedActionClicked(GuidedAction action) {
             switch ((int) action.getId()){
                 case ACTION_CONTINUE:
-                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new FirstStepFragment());
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new HourFormatFragment());
                     break;
                 case ACTION_BACK:
                     Objects.requireNonNull(getActivity()).finish();
@@ -107,7 +112,51 @@ public class GuidedStepActivity extends FragmentActivity {
         }
     }
 
-    public static class FirstStepFragment extends GuidedStepSupportFragment{
+    public static class HourFormatFragment extends GuidedStepSupportFragment{
+        private static final int FORMAT12HHMM = 121;
+        private static final int FORMAT12HHMMSS = 122;
+        private static final int FORMAT24HHMM = 241;
+        private static final int FORMAT24HHMMSS = 242;
+        @NonNull
+        @Override
+        public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
+            String title = "Формат времени";
+            String breadcrumb = "Мастер настройки Dreamless";
+            String description = "Выберете представление и формат";
+            Drawable icon = Objects.requireNonNull(getActivity()).getDrawable(R.mipmap.dreamless_icon);
+            return new GuidanceStylist.Guidance(title, description, breadcrumb, icon);
+        }
+        @Override
+        public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
+            addAction(actions, FORMAT24HHMM, "HH:MM", "24 часовой");
+            addAction(actions, FORMAT24HHMMSS, "HH:MM:SS", "24 часовой");
+            addAction(actions, FORMAT12HHMM, "HH:MM", "12 часовой");
+            addAction(actions, FORMAT12HHMMSS, "HH:MM:SS", "12 часовой");
+        }
+        @Override
+        public void onGuidedActionClicked(GuidedAction action) {
+            switch ((int) action.getId()){
+                case FORMAT24HHMM: {
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "HH:mm")
+                            .putInt("FORMAT_HTIME", 24).apply();
+                }
+                case FORMAT24HHMMSS: {
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "HH:mm:ss")
+                            .putInt("FORMAT_HTIME", 24).apply();
+                }
+                case FORMAT12HHMM: {
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "hh:mm a")
+                            .putInt("FORMAT_HTIME", 12).apply();
+                }
+                case FORMAT12HHMMSS: {
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "hh:mm:ss a")
+                            .putInt("FORMAT_HTIME", 12).apply();
+                }
+            }
+        }
+    }
+
+    public static class VkStepFragment extends GuidedStepSupportFragment{
         @NonNull
         @Override
         public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -115,7 +164,6 @@ public class GuidedStepActivity extends FragmentActivity {
             String breadcrumb = "Мастер настройки Dreamless";
             String description = "Это необходимо для получения уведомлений";
             Drawable icon = Objects.requireNonNull(getActivity()).getDrawable(R.mipmap.dreamless_icon);
-
             return new GuidanceStylist.Guidance(title, description, breadcrumb, icon);
         }
 
