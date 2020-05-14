@@ -55,7 +55,7 @@ public class GuidedStepActivity extends FragmentActivity {
 
             @Override
             public void onLoginFailed(int i) {
-
+                startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
             }
         };
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
@@ -101,6 +101,7 @@ public class GuidedStepActivity extends FragmentActivity {
                     break;
                 default:
                     Log.w(TAG, "Action is not defined");
+                    startActivity(new Intent(getActivity(), ErrorActivity.class));
                     break;
             }
         }
@@ -149,6 +150,7 @@ public class GuidedStepActivity extends FragmentActivity {
                     startActivity(intentDream);
                 default:
                     Log.w(TAG, "Action is not defined");
+                    startActivity(new Intent(getActivity(), ErrorActivity.class));
                     break;
             }
         }

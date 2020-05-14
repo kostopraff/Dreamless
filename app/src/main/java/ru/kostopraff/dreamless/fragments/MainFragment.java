@@ -49,7 +49,7 @@ public class MainFragment extends BrowseSupportFragment {
     private void setupUIElements() {
         //setTitle("Dreamless");
         setBadgeDrawable(getResources().getDrawable(R.drawable.dreamless_badge));
-        setHeadersState(HEADERS_HIDDEN);
+        setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
         setBrandColor(getResources().getColor(R.color.headers));
     }
@@ -113,15 +113,13 @@ public class MainFragment extends BrowseSupportFragment {
             // each time the item is clicked, code inside here will be executed.
             if (item instanceof String) {
                 if (item == "Мастер первоначальной настройки") {
-                    Intent intent = new Intent(getActivity(), GuidedStepActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(getActivity(), GuidedStepActivity.class));
                 } else if (item == "Start Dream"){
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
                     startActivity(intentDream);
                 } else if (item == "Test error fragment"){
-                    Intent intent = new Intent(getActivity(), ErrorActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(getActivity(), ErrorActivity.class));
                 }
             }
         }

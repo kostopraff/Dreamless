@@ -1,5 +1,6 @@
 package ru.kostopraff.dreamless;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -25,6 +26,8 @@ import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import ru.kostopraff.dreamless.activities.ErrorActivity;
 
 public class DreamPicsum extends DreamService {
 
@@ -116,11 +119,13 @@ public class DreamPicsum extends DreamService {
                                 }
                             } catch (JSONException e) {
                                 Log.e("VK", "Error parsing json: " + e.toString());
+                                startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
                             }
                         }
                         @Override
                         public void fail(@NotNull Exception e) {
                             Log.e("VK", e.toString());
+                            startActivity(new Intent(getApplicationContext(), ErrorActivity.class));
                         }
                     });
                 }
