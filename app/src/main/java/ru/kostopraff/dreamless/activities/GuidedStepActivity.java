@@ -52,8 +52,7 @@ public class GuidedStepActivity extends FragmentActivity {
         VKAuthCallback callback = new VKAuthCallback() {
             @Override
             public void onLogin(@NotNull VKAccessToken vkAccessToken) {
-                // FragmentManager fm = getFragmentManager();
-                // GuidedStepFragment.add(fm, new SecondStepFragment());
+                finish();
             }
 
             @Override
@@ -104,10 +103,10 @@ public class GuidedStepActivity extends FragmentActivity {
         @Override
         public void onCreateActions(@NonNull List actions, Bundle savedInstanceState) {
             if(!VK.isLoggedIn())
-                addAction(actions, ACTION_CONTINUE, "Авторизация VK", "Для получения всех ваших уведомлений");
-            else addAction(actions, ACTION_CONTINUE, "Выход из VK", "ъеъ");
-            addAction(actions, ACTION_BACK, "Отмена", "Оставим все как есть");
-            addAction(actions, ACTION_TEST, "Тест","");
+                addAction(actions, ACTION_CONTINUE, "Авторизация VK", "Необходима для получения уведомлений");
+            else addAction(actions, ACTION_CONTINUE, "Вы уже авторизованы в VK", "Выйти?");
+            addAction(actions, ACTION_BACK, "Выход", "");
+            addAction(actions, ACTION_TEST, "Тестовый запуск","");
         }
 
         @Override
@@ -116,12 +115,16 @@ public class GuidedStepActivity extends FragmentActivity {
             switch ((int) action.getId()){
                 case ACTION_CONTINUE:
                     if(!VK.isLoggedIn()){
-                        VK.login(Objects.requireNonNull(this.getActivity()), Collections.singleton(VKScope.NOTIFICATIONS));
+                        VK.login(Objects.requireNonNull(this.getActivity()),
+                                Collections.singleton(VKScope.NOTIFICATIONS));
                     }
-                    else VK.logout();
+                    else {
+                        VK.logout();
+                        Objects.requireNonNull(getActivity()).finish();
+                    }
                     break;
                 case ACTION_BACK:
-                    getActivity().finish();
+                    Objects.requireNonNull(getActivity()).finish();
                     break;
                 case ACTION_TEST:
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);

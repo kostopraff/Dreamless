@@ -12,16 +12,14 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/dreamless_icon"
-        android:banner="@drawable/dreamless_banner_720"
+        android:banner="@drawable/dreamless_banner_tv"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback">
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/SplashTheme"
-            android:banner="@drawable/dreamless_banner_720"
-            android:icon="@drawable/dreamless_banner_720"
-            android:logo="@drawable/dreamless_banner_720"
+            android:banner="@drawable/dreamless_banner_tv"
             android:screenOrientation="landscape">
 
             <intent-filter>

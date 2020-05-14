@@ -8,33 +8,21 @@ import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextClock;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.google.gson.Gson;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.vk.api.sdk.VK;
 import com.vk.api.sdk.VKApiCallback;
-import com.vk.api.sdk.VKApiManager;
-import com.vk.api.sdk.VKApiResponseParser;
-import com.vk.api.sdk.VkResult;
-import com.vk.api.sdk.exceptions.VKApiExecutionException;
 import com.vk.api.sdk.requests.VKRequest;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,8 +31,11 @@ public class DreamPicsum extends DreamService {
     private AppCompatImageView imageView;
     private AppCompatImageView vkNotificationIcon;
     private Drawable drawable;
+    private Timer timer;
     private int width, height;
-    private int oldNotificationCount = -1, viewTime;
+    private int notificationCount = 0;
+    private static String [] FIELDS = {"friends", "messages", "photos", "videos", "notes", "gifts",
+            "events", "groups", "notifications", "sdk", "app_requests"};
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
@@ -79,7 +70,7 @@ public class DreamPicsum extends DreamService {
         vkNotificationIcon = findViewById(R.id.vk_notification);
 
         final Handler uiHandler = new Handler();
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -103,26 +94,28 @@ public class DreamPicsum extends DreamService {
             @Override
             public void run() {
                 if(VK.isLoggedIn()){
-                    VK.execute(new VKRequest("notifications.get"), new VKApiCallback() {
+                    VK.execute(new VKRequest("account.getCounters"), new VKApiCallback() {
                         @Override
                         public void success(Object o) {
                             Log.v("VK", "Success sending request: " + o.toString());
                             JSONObject response = (JSONObject) o;
+                            notificationCount = 0;
                             try {
-                                JSONArray notificationCount = response.getJSONObject("response").getJSONArray("items");
-                                if(oldNotificationCount == -1) {
-                                    oldNotificationCount = notificationCount.length();
-                                    viewTime = response.getJSONObject("response").getInt("last_viewed");
+                                for (String i : FIELDS) {
+                                    notificationCount += response
+                                        .getJSONObject("response")
+                                        .optInt(i);
                                 }
-                                if (notificationCount.length() != oldNotificationCount){
-                                    oldNotificationCount = notificationCount.length();
+                                if(vkNotificationIcon.getVisibility() == View.VISIBLE){
+                                    if (notificationCount == 0) {
+                                        vkNotificationIcon.setVisibility(View.INVISIBLE);
+                                    }
+                                } else if (notificationCount > 0){
                                     Log.v("VK", "NEW NOTIFICATION");
                                     vkNotificationIcon.setVisibility(View.VISIBLE);
-                                } else if (viewTime != response.getJSONObject("response").getInt("last_viewed")){
-                                    vkNotificationIcon.setVisibility(View.INVISIBLE);
                                 }
                             } catch (JSONException e) {
-                                Log.e("VK", "ERROR json parse: " + e.toString());
+                                Log.e("VK", "Error parsing json: " + e.toString());
                             }
                         }
                         @Override
@@ -133,5 +126,11 @@ public class DreamPicsum extends DreamService {
                 }
             }
         }, 5000, 30000);
+    }
+
+    @Override
+    public void onDreamingStopped() {
+        super.onDreamingStopped();
+        timer.cancel();
     }
 }
