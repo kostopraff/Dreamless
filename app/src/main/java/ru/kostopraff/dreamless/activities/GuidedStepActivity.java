@@ -1,6 +1,5 @@
 package ru.kostopraff.dreamless.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.leanback.app.GuidedStepSupportFragment;
 import androidx.leanback.widget.GuidanceStylist;
 import androidx.leanback.widget.GuidedAction;
-import androidx.fragment.app.FragmentManager;
 
 import com.vk.api.sdk.VK;
 import com.vk.api.sdk.auth.VKAccessToken;
@@ -22,7 +20,6 @@ import com.vk.api.sdk.auth.VKScope;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -37,13 +34,14 @@ public class GuidedStepActivity extends FragmentActivity {
     private static final int ACTION_CONTINUE = 0;
     private static final int ACTION_BACK = 1;
     private static final int ACTION_TEST = -1;
+    private static final int ACTION_VK = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         if (null == savedInstanceState) {
-            GuidedStepSupportFragment.addAsRoot(this, new FirstStepFragment(), android.R.id.content);
+            GuidedStepSupportFragment.addAsRoot(this, new StartFragment(), android.R.id.content);
         }
     }
 
@@ -73,22 +71,7 @@ public class GuidedStepActivity extends FragmentActivity {
                 .build());
     }
 
-    /*private static void retypeAction(List actions, long id, String title, String desc) {
-        if(actions.contains(new GuidedAction.Builder().id(id))){
-            actions.remove(new GuidedAction.Builder()
-                    .id(id)
-                    .title(title)
-                    .description(desc)
-                    .build());
-            actions.add(new GuidedAction.Builder()
-                    .id(id)
-                    .title(title)
-                    .description(desc)
-                    .build());
-        }
-    }*/
-
-    public static class FirstStepFragment extends GuidedStepSupportFragment {
+    public static class StartFragment extends GuidedStepSupportFragment {
         @NonNull
         @Override
         public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -102,18 +85,52 @@ public class GuidedStepActivity extends FragmentActivity {
 
         @Override
         public void onCreateActions(@NonNull List actions, Bundle savedInstanceState) {
-            if(!VK.isLoggedIn())
-                addAction(actions, ACTION_CONTINUE, "Авторизация VK", "Необходима для получения уведомлений");
-            else addAction(actions, ACTION_CONTINUE, "Вы уже авторизованы в VK", "Выйти?");
+            addAction(actions, ACTION_CONTINUE, "Начать", "");
             addAction(actions, ACTION_BACK, "Выход", "");
             addAction(actions, ACTION_TEST, "Тестовый запуск","");
         }
 
         @Override
         public void onGuidedActionClicked(GuidedAction action) {
-
             switch ((int) action.getId()){
                 case ACTION_CONTINUE:
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new FirstStepFragment());
+                    break;
+                case ACTION_BACK:
+                    Objects.requireNonNull(getActivity()).finish();
+                    break;
+                default:
+                    Log.w(TAG, "Action is not defined");
+                    break;
+            }
+        }
+    }
+
+    public static class FirstStepFragment extends GuidedStepSupportFragment{
+        @NonNull
+        @Override
+        public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
+            String title = "Авторизация в соц. сетях";
+            String breadcrumb = "Мастер настройки Dreamless";
+            String description = "Это необходимо для получения уведомлений";
+            Drawable icon = Objects.requireNonNull(getActivity()).getDrawable(R.mipmap.dreamless_icon);
+
+            return new GuidanceStylist.Guidance(title, description, breadcrumb, icon);
+        }
+
+        @Override
+        public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
+            if(!VK.isLoggedIn())
+                addAction(actions, ACTION_VK, "Авторизация VK", "");
+            else addAction(actions, ACTION_VK, "Вы уже авторизованы в VK", "Выйти?");
+            addAction(actions, ACTION_BACK, "Выход", "");
+            addAction(actions, ACTION_TEST, "Тестовый запуск","");
+        }
+
+        @Override
+        public void onGuidedActionClicked(GuidedAction action) {
+            switch ((int) action.getId()){
+                case ACTION_VK:
                     if(!VK.isLoggedIn()){
                         VK.login(Objects.requireNonNull(this.getActivity()),
                                 Collections.singleton(VKScope.NOTIFICATIONS));

@@ -34,7 +34,7 @@ public class DreamPicsum extends DreamService {
     private Timer timer;
     private int width, height;
     private int notificationCount = 0;
-    private static String [] FIELDS = {"friends", "messages", "photos", "videos", "notes", "gifts",
+    private static final String [] FIELDS = {"friends", "messages", "photos", "videos", "notes", "gifts",
             "events", "groups", "notifications", "sdk", "app_requests"};
 
     @RequiresApi(api = Build.VERSION_CODES.P)

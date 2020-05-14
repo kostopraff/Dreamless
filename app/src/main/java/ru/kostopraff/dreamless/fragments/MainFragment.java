@@ -2,7 +2,6 @@ package ru.kostopraff.dreamless.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,17 +14,24 @@ import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.ListRowPresenter;
 import androidx.leanback.widget.OnItemViewClickedListener;
+import androidx.leanback.widget.OnItemViewSelectedListener;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
 
+import java.util.Objects;
+
+import ru.kostopraff.dreamless.PicassoBackgroundManager;
 import ru.kostopraff.dreamless.R;
+import ru.kostopraff.dreamless.activities.ErrorActivity;
 import ru.kostopraff.dreamless.activities.GuidedStepActivity;
 
 public class MainFragment extends BrowseSupportFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
 
     private ArrayObjectAdapter mRowsAdapter;
+    private PicassoBackgroundManager picassoBackgroundManager;
+
     private static final int GRID_ITEM_WIDTH = 300;
     private static final int GRID_ITEM_HEIGHT = 200;
 
@@ -33,24 +39,24 @@ public class MainFragment extends BrowseSupportFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-
+        picassoBackgroundManager = new PicassoBackgroundManager(Objects.requireNonNull(getActivity()));
+        picassoBackgroundManager.startUpdateBackgroundTimer(0);
         setupUIElements();
         loadRows();
         setupEventListeners();
     }
 
     private void setupUIElements() {
-        setHeadersState(HEADERS_ENABLED);
+        //setTitle("Dreamless");
+        setBadgeDrawable(getResources().getDrawable(R.drawable.dreamless_badge));
+        setHeadersState(HEADERS_HIDDEN);
         setHeadersTransitionOnBackEnabled(true);
-
-        // set fastLane (or headers) background color
-        setBrandColor(getResources().getColor(R.color.fastlane_background));
-        // set search icon color
-        setSearchAffordanceColor(getResources().getColor(R.color.search_opaque));
+        setBrandColor(getResources().getColor(R.color.headers));
     }
 
     private void setupEventListeners() {
         setOnItemViewClickedListener(new ItemViewClickedListener());
+        setOnItemViewSelectedListener(new ItemViewSelectedListener());
     }
 
     private void loadRows() {
@@ -58,12 +64,19 @@ public class MainFragment extends BrowseSupportFragment {
 
         /* GridItemPresenter */
         HeaderItem gridItemPresenterHeader = new HeaderItem(0, "Настройки");
-
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
         gridRowAdapter.add("Мастер первоначальной настройки");
         gridRowAdapter.add("Start Dream");
+        gridRowAdapter.add("Test error fragment");
         mRowsAdapter.add(new ListRow(gridItemPresenterHeader, gridRowAdapter));
+
+        HeaderItem gridItemPresenterHeader1 = new HeaderItem(0, "Настройки111");
+        GridItemPresenter mGridPresenter1 = new GridItemPresenter();
+        ArrayObjectAdapter gridRowAdapter1 = new ArrayObjectAdapter(mGridPresenter1);
+        gridRowAdapter1.add("Мастер первоначальной настройки");
+        gridRowAdapter1.add("Start Dream");
+        mRowsAdapter.add(new ListRow(gridItemPresenterHeader1, gridRowAdapter1));
 
         /* set */
         setAdapter(mRowsAdapter);
@@ -102,12 +115,24 @@ public class MainFragment extends BrowseSupportFragment {
                 if (item == "Мастер первоначальной настройки") {
                     Intent intent = new Intent(getActivity(), GuidedStepActivity.class);
                     startActivity(intent);
-                }
-                else if (item == "Start Dream"){
+                } else if (item == "Start Dream"){
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
                     startActivity(intentDream);
+                } else if (item == "Test error fragment"){
+                    Intent intent = new Intent(getActivity(), ErrorActivity.class);
+                    startActivity(intent);
                 }
+            }
+        }
+    }
+
+    private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
+        @Override
+        public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item,
+                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
+            if (item instanceof String) { //gridpreseneter
+                picassoBackgroundManager.startUpdateBackgroundTimer(500);
             }
         }
     }

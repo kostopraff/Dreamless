@@ -6,7 +6,7 @@
     <integer name="com_vk_sdk_AppId">7464110</integer>
 
     <!-- Error messages -->
-    <string name="error_fragment_message">An error occurred</string>
-    <string name="dismiss_error">Dismiss</string>
+    <string name="error_fragment_message">Произошла ошибка</string>
+    <string name="dismiss_error">Выход</string>
 
 </resources>

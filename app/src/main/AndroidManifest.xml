@@ -13,6 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/dreamless_icon"
         android:banner="@drawable/dreamless_banner_tv"
+        android:logo="@drawable/dreamless_banner_tv"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback">
@@ -48,8 +49,11 @@
             android:screenOrientation="landscape">
         </activity>
 
-        <activity android:name=".activities.GuidedStepActivity"
+        <activity
+            android:name=".activities.GuidedStepActivity"
             android:theme="@style/Theme.Leanback.GuidedStep"/>
+
+        <activity android:name=".activities.ErrorActivity" />
     </application>
 
 </manifest>
