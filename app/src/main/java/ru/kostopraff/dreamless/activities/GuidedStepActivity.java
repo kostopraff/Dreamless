@@ -37,8 +37,6 @@ public class GuidedStepActivity extends FragmentActivity {
     /* Action ID definition */
     private static final int ACTION_CONTINUE = 0;
     private static final int ACTION_BACK = 1;
-    private static final int ACTION_TEST = -1;
-    private static final int ACTION_VK = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +90,6 @@ public class GuidedStepActivity extends FragmentActivity {
         public void onCreateActions(@NonNull List actions, Bundle savedInstanceState) {
             addAction(actions, ACTION_CONTINUE, "Начать", "");
             addAction(actions, ACTION_BACK, "Выход", "");
-            addAction(actions, ACTION_TEST, "Тестовый запуск","");
         }
 
         @Override
@@ -117,12 +114,13 @@ public class GuidedStepActivity extends FragmentActivity {
         private static final int FORMAT12HHMMSS = 122;
         private static final int FORMAT24HHMM = 241;
         private static final int FORMAT24HHMMSS = 242;
+        private static final int FORMAT00 = 1224;
         @NonNull
         @Override
         public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
             String title = "Формат времени";
             String breadcrumb = "Мастер настройки Dreamless";
-            String description = "Выберете представление и формат";
+            String description = "Формат отображения времени (12/24 часовой) зависит от настроек системы";
             Drawable icon = Objects.requireNonNull(getActivity()).getDrawable(R.mipmap.dreamless_icon);
             return new GuidanceStylist.Guidance(title, description, breadcrumb, icon);
         }
@@ -130,33 +128,45 @@ public class GuidedStepActivity extends FragmentActivity {
         public void onCreateActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
             addAction(actions, FORMAT24HHMM, "HH:MM", "24 часовой");
             addAction(actions, FORMAT24HHMMSS, "HH:MM:SS", "24 часовой");
-            addAction(actions, FORMAT12HHMM, "HH:MM", "12 часовой");
-            addAction(actions, FORMAT12HHMMSS, "HH:MM:SS", "12 часовой");
+            addAction(actions, FORMAT12HHMM, "HH:MM AM/PM", "12 часовой");
+            addAction(actions, FORMAT12HHMMSS, "HH:MM:SS AM/PM", "12 часовой");
+            addAction(actions, FORMAT00, "Не показывать время", "");
         }
         @Override
         public void onGuidedActionClicked(GuidedAction action) {
             switch ((int) action.getId()){
-                case FORMAT24HHMM: {
-                    mSharedPreferences.edit().putString("FORMAT_TIME", "HH:mm")
-                            .putInt("FORMAT_HTIME", 24).apply();
-                }
-                case FORMAT24HHMMSS: {
-                    mSharedPreferences.edit().putString("FORMAT_TIME", "HH:mm:ss")
-                            .putInt("FORMAT_HTIME", 24).apply();
-                }
-                case FORMAT12HHMM: {
-                    mSharedPreferences.edit().putString("FORMAT_TIME", "hh:mm a")
-                            .putInt("FORMAT_HTIME", 12).apply();
-                }
-                case FORMAT12HHMMSS: {
-                    mSharedPreferences.edit().putString("FORMAT_TIME", "hh:mm:ss a")
-                            .putInt("FORMAT_HTIME", 12).apply();
-                }
+                case FORMAT24HHMM:
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "H:mm")
+                            .putBoolean("TIME", true).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+                    break;
+                case FORMAT24HHMMSS:
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "H:mm:ss")
+                            .putBoolean("TIME", true).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+                    break;
+                case FORMAT12HHMM:
+
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "h:mm aa")
+                            .putBoolean("TIME", true).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+                    break;
+                case FORMAT12HHMMSS:
+                    mSharedPreferences.edit().putString("FORMAT_TIME", "h:mm:ss aa")
+                            .putBoolean("TIME", true).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+                    break;
+                case FORMAT00:
+                    mSharedPreferences.edit().putBoolean("TIME", false).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+                    break;
             }
         }
     }
 
     public static class VkStepFragment extends GuidedStepSupportFragment{
+        private static final int ACTION_TEST = -1;
+        private static final int ACTION_VK = 10;
         @NonNull
         @Override
         public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -196,6 +206,7 @@ public class GuidedStepActivity extends FragmentActivity {
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
                     startActivity(intentDream);
+                    break;
                 default:
                     Log.w(TAG, "Action is not defined");
                     startActivity(new Intent(getActivity(), ErrorActivity.class));

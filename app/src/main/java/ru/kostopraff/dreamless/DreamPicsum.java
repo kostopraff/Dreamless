@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.service.dreams.DreamService;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -57,14 +56,13 @@ public class DreamPicsum extends DreamService {
         mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
         date = findViewById(R.id.dream_date);
         time = findViewById(R.id.dream_time);
-        switch (mSharedPreferences.getInt("FORMAT_HTIME", 24)) {
-            case 24:{
-                time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "HH:mm"));
-            }
-            case 12:{
-                time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "hh:mm a"));
-            }
-        }
+        if(mSharedPreferences.getBoolean("TIME", true)){
+            time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "H:mm"));
+            time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "h:mm aa"));
+            time.setVisibility(View.VISIBLE);
+        } else time.setVisibility(View.INVISIBLE);
+
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
