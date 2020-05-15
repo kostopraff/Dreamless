@@ -24,7 +24,7 @@ import java.util.Objects;
 import ru.kostopraff.dreamless.PicassoBackgroundManager;
 import ru.kostopraff.dreamless.R;
 import ru.kostopraff.dreamless.activities.ErrorActivity;
-import ru.kostopraff.dreamless.activities.GuidedStepActivity;
+import ru.kostopraff.dreamless.activities.MasterSetupActivity;
 
 public class MainFragment extends BrowseSupportFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
@@ -113,7 +113,7 @@ public class MainFragment extends BrowseSupportFragment {
             // each time the item is clicked, code inside here will be executed.
             if (item instanceof String) {
                 if (item == "Мастер первоначальной настройки") {
-                    startActivity(new Intent(getActivity(), GuidedStepActivity.class));
+                    startActivity(new Intent(getActivity(), MasterSetupActivity.class));
                 } else if (item == "Start Dream"){
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");

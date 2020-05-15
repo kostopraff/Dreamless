@@ -53,21 +53,25 @@ public class DreamPicsum extends DreamService {
         setInteractive(false);
         setContentView(R.layout.dream_photo);
 
-        mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
-        date = findViewById(R.id.dream_date);
-        time = findViewById(R.id.dream_time);
-        if(mSharedPreferences.getBoolean("TIME", true)){
-            time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "H:mm"));
-            time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "h:mm aa"));
-            time.setVisibility(View.VISIBLE);
-        } else time.setVisibility(View.INVISIBLE);
-
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         width = size.x;
         height = size.y;
+
+        mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
+        date = findViewById(R.id.dream_date);
+        time = findViewById(R.id.dream_time);
+        if (mSharedPreferences.getBoolean("TIME", true)){
+            time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "H:mm"));
+            time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "h:mm aa"));
+            time.setVisibility(View.VISIBLE);
+        } else time.setVisibility(View.INVISIBLE);
+        if (mSharedPreferences.getBoolean("DATE", true)){
+            date.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", "d MMMM, EEEE"));
+            date.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", "d MMMM, EEEE"));
+            date.setVisibility(View.VISIBLE);
+        } else date.setVisibility(View.INVISIBLE);
 
         imageView = findViewById(R.id.dream_photo);
         switch (height){
@@ -78,7 +82,6 @@ public class DreamPicsum extends DreamService {
             case 2160:
                 imageView.setImageResource(R.drawable.dreamless_banner_4k);
         }
-
     }
 
     @Override
