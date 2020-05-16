@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import ru.kostopraff.dreamless.PicassoBackgroundManager;
 import ru.kostopraff.dreamless.R;
 
 public class MasterSetupActivity extends FragmentActivity {
@@ -82,7 +83,6 @@ public class MasterSetupActivity extends FragmentActivity {
             String breadcrumb = "Вас приветствует";
             String description = "Давайте настроим нашу заставку";
             Drawable icon = Objects.requireNonNull(getActivity()).getDrawable(R.mipmap.dreamless_icon);
-
             return new GuidanceStylist.Guidance(title, description, breadcrumb, icon);
         }
 
@@ -221,74 +221,93 @@ public class MasterSetupActivity extends FragmentActivity {
                 case FORMATDATESIMPLE:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d.MM.yy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
+
                     break;
                 case FORMATDATESIMPLESHORTDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d.MM.yy E").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESIMPLEALT:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "yyyy.MM.dd").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESIMPLEALTSHORTDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "yyyy.MM.dd E").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATEFULLDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "EEEE, d MMMM yyyy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATEFULLDAYTHIN:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "EEEE, d MMMM").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESHORTFULLDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "EEEE, d MMM. yyyy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESHORTFULLDAYTHIN:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "EEEE, d MMM.").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATEDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "E. d MMMM yyyy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATEDAYTHIN:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "E. d MMMM").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESHORTDAY:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "E. d MMM. yyyy").apply();
+
                     break;
                 case FORMATDATESHORTDAYTHIN:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "E. d MMM.").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATE:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMMM yyyy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATETHIN:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMMM").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATEDEFAULT:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMMM, EEEE").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESHORT:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMM. yyyy").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATETHINNEST:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMM.").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESTUPID:
                     mSharedPreferences.edit().putBoolean("DATE", true)
                             .putString("FORMAT_DATE", "d MMM. E.").apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATOFF:
                     mSharedPreferences.edit().putBoolean("DATE", false).apply();
@@ -302,6 +321,7 @@ public class MasterSetupActivity extends FragmentActivity {
     public static class VkStepFragment extends GuidedStepSupportFragment{
         private static final int ACTION_TEST = -1;
         private static final int ACTION_VK = 10;
+        private static final int ACTION_SKIP = 2;
         @NonNull
         @Override
         public GuidanceStylist.Guidance onCreateGuidance(Bundle savedInstanceState) {
@@ -317,7 +337,7 @@ public class MasterSetupActivity extends FragmentActivity {
             if(!VK.isLoggedIn())
                 addAction(actions, ACTION_VK, "Авторизация VK", "");
             else addAction(actions, ACTION_VK, "Вы уже авторизованы в VK", "Выйти?");
-            addAction(actions, ACTION_BACK, "Выход", "");
+            addAction(actions, ACTION_SKIP, "Выход из мастера настройки", "");
             addAction(actions, ACTION_TEST, "Тестовый запуск","");
         }
 
@@ -326,18 +346,21 @@ public class MasterSetupActivity extends FragmentActivity {
             switch ((int) action.getId()){
                 case ACTION_VK:
                     if(!VK.isLoggedIn()){
-                        VK.login(Objects.requireNonNull(this.getActivity()),
-                                Collections.singleton(VKScope.NOTIFICATIONS));
+                        mSharedPreferences.edit().putBoolean("MASTER", true).apply();
+                        VK.login(Objects.requireNonNull(this.getActivity()));
                     }
                     else {
+                        mSharedPreferences.edit().putBoolean("MASTER", true).apply();
                         VK.logout();
-                        Objects.requireNonNull(getActivity()).finish();
+                        finishGuidedStepSupportFragments();
                     }
                     break;
-                case ACTION_BACK:
-                    Objects.requireNonNull(getActivity()).finish();
+                case ACTION_SKIP:
+                    mSharedPreferences.edit().putBoolean("MASTER", true).apply();
+                    finishGuidedStepSupportFragments();
                     break;
                 case ACTION_TEST:
+                    mSharedPreferences.edit().putBoolean("MASTER", true).apply();
                     Intent intentDream = new Intent(Intent.ACTION_MAIN);
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
                     startActivity(intentDream);

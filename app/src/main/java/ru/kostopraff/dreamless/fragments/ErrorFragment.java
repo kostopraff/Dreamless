@@ -11,13 +11,13 @@ import java.util.Objects;
 import ru.kostopraff.dreamless.R;
 
 public class ErrorFragment extends ErrorSupportFragment {
-    private static final String TAG = ErrorFragment.class.getSimpleName();
+    private static final String TAG = ErrorSupportFragment.class.getSimpleName();
     private static final boolean TRANSLUCENT = true;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onCreate");
-        super.onCreate(savedInstanceState);
         setErrorContent();
     }
 
@@ -29,6 +29,7 @@ public class ErrorFragment extends ErrorSupportFragment {
         setButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                //Objects.requireNonNull(getActivity()).finish();
                 Objects.requireNonNull(getFragmentManager()).beginTransaction().remove(ErrorFragment.this).commit();
             }
         });

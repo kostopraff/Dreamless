@@ -33,16 +33,15 @@ import java.util.TimerTask;
 import ru.kostopraff.dreamless.activities.ErrorActivity;
 
 public class DreamPicsum extends DreamService {
-
     private AppCompatImageView imageView;
-    private TextClock date, time;
     private AppCompatImageView vkNotificationIcon;
+    private TextClock date, time;
     private Drawable drawable;
     private Timer timer;
     private int width, height;
     private int notificationCount = 0;
-    private static final String [] FIELDS = {"friends", "messages", "photos", "videos", "notes", "gifts",
-            "events", "groups", "notifications", "sdk", "app_requests"};
+    private static final String [] FIELDS = {"friends", "messages", "photos", "videos",
+            "notes", "gifts", "events", "groups", "notifications", "sdk", "app_requests"};
     private SharedPreferences mSharedPreferences;
 
     @RequiresApi(api = Build.VERSION_CODES.P)

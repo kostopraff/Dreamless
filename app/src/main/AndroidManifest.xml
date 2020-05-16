@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ru.kostopraff.dreamless">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-feature
@@ -46,14 +47,22 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity">
         </activity>
 
         <activity
             android:name=".activities.MasterSetupActivity"
-            android:theme="@style/Theme.Leanback.GuidedStep"/>
+            android:theme="@style/Theme.Leanback.GuidedStep"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity" />
 
-        <activity android:name=".activities.ErrorActivity" />
+        <activity
+            android:name=".activities.ErrorActivity"
+            android:screenOrientation="landscape"
+            tools:ignore="LockedOrientationActivity"/>
+
+
+
     </application>
-
 </manifest>

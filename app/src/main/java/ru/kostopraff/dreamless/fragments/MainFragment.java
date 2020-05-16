@@ -63,20 +63,13 @@ public class MainFragment extends BrowseSupportFragment {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
         /* GridItemPresenter */
-        HeaderItem gridItemPresenterHeader = new HeaderItem(0, "Настройки");
+        HeaderItem gridItemPresenterHeader = new HeaderItem(0, "Testing app section");
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
         gridRowAdapter.add("Мастер первоначальной настройки");
         gridRowAdapter.add("Start Dream");
         gridRowAdapter.add("Test error fragment");
         mRowsAdapter.add(new ListRow(gridItemPresenterHeader, gridRowAdapter));
-
-        HeaderItem gridItemPresenterHeader1 = new HeaderItem(0, "Настройки111");
-        GridItemPresenter mGridPresenter1 = new GridItemPresenter();
-        ArrayObjectAdapter gridRowAdapter1 = new ArrayObjectAdapter(mGridPresenter1);
-        gridRowAdapter1.add("Мастер первоначальной настройки");
-        gridRowAdapter1.add("Start Dream");
-        mRowsAdapter.add(new ListRow(gridItemPresenterHeader1, gridRowAdapter1));
 
         /* set */
         setAdapter(mRowsAdapter);
@@ -119,7 +112,7 @@ public class MainFragment extends BrowseSupportFragment {
                     intentDream.setClassName("com.android.systemui", "com.android.systemui.Somnambulator");
                     startActivity(intentDream);
                 } else if (item == "Test error fragment"){
-                    startActivity(new Intent(getActivity(), ErrorActivity.class));
+                    startActivity(new Intent(getContext(), ErrorActivity.class));
                 }
             }
         }

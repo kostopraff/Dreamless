@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Dreamless</string>
-    <string name="title_activity_main">Leanback MainActivity Title</string>
-    <string name="browse_title"><![CDATA[Videos by Your Company]]></string>
 
     <integer name="com_vk_sdk_AppId">7464110</integer>
 
