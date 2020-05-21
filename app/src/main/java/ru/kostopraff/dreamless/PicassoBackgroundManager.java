@@ -23,7 +23,6 @@ public class PicassoBackgroundManager {
 
     private final int DEFAULT_BACKGROUND_RES_ID = R.drawable.dreamless_banner_4k;
     private static Drawable mDefaultBackground;
-    // Handler attached with main thread
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private BackgroundManager mBackgroundManager = null;
     private DisplayMetrics mMetrics;
@@ -47,7 +46,6 @@ public class PicassoBackgroundManager {
         mBackgroundTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                /* Here is TimerTask thread, not UI thread */
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -68,11 +66,7 @@ public class PicassoBackgroundManager {
         }, delay);
     }
 
-    /**
-     * Copied from AOSP sample code.
-     * Inner class
-     * Picasso target for updating default_background images
-     */
+    // * Picasso target for updating default_background images
     public static class PicassoBackgroundManagerTarget implements Target {
         BackgroundManager mBackgroundManager;
 

@@ -51,9 +51,9 @@ public class MainFragment extends BrowseSupportFragment {
     }
 
     private void setupUIElements() {
-        setTitle("Dreamless");
+        setTitle(getString(R.string.app_name));
         //setBadgeDrawable(getResources().getDrawable(R.drawable.dreamless_badge));
-        setHeadersState(HEADERS_HIDDEN);
+        setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(false);
         setBrandColor(getResources().getColor(R.color.headers));
     }

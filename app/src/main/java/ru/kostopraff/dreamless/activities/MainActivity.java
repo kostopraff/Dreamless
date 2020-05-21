@@ -16,7 +16,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
+        preferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         if(!preferences.getBoolean("MASTER", false)){
             ComponentName name = new ComponentName("com.android.tv.settings",
                     "com.android.tv.settings.device.display.daydream.DaydreamActivity");

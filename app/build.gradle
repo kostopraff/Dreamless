@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "ru.kostopraff.dreamless"
         minSdkVersion 26
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -29,6 +29,6 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.hierynomus:smbj:0.10.0'
+    //implementation 'com.hierynomus:smbj:0.10.0'
     implementation 'com.vk:androidsdk:2.2.1'
 }

@@ -58,17 +58,17 @@ public class DreamPicsum extends DreamService {
         width = size.x;
         height = size.y;
 
-        mSharedPreferences = getSharedPreferences("Dreamless", Context.MODE_PRIVATE);
+        mSharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         date = findViewById(R.id.dream_date);
         time = findViewById(R.id.dream_time);
-        if (mSharedPreferences.getBoolean("TIME", true)){
-            time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "H:mm"));
-            time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", "h:mm aa"));
+        if (mSharedPreferences.getBoolean(getString(R.string.time), true)){
+            time.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", getString(R.string.format24hmm)));
+            time.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_TIME", getString(R.string.format12hmma)));
             time.setVisibility(View.VISIBLE);
         } else time.setVisibility(View.INVISIBLE);
-        if (mSharedPreferences.getBoolean("DATE", true)){
-            date.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", "d MMMM, EEEE"));
-            date.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", "d MMMM, EEEE"));
+        if (mSharedPreferences.getBoolean(getString(R.string.date), true)){
+            date.setFormat24Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", getString(R.string.formatdatedefault)));
+            date.setFormat12Hour((CharSequence) mSharedPreferences.getString("FORMAT_DATE", getString(R.string.formatdatedefault)));
             date.setVisibility(View.VISIBLE);
         } else date.setVisibility(View.INVISIBLE);
 
@@ -114,7 +114,7 @@ public class DreamPicsum extends DreamService {
             @Override
             public void run() {
                 if(VK.isLoggedIn()){
-                    VK.execute(new VKRequest("account.getCounters"), new VKApiCallback() {
+                    VK.execute(new VKRequest(getString(R.string.vkmethod_getCounters)), new VKApiCallback() {
                         @Override
                         public void success(Object o) {
                             Log.v("VK", "Success sending request: " + o.toString());
