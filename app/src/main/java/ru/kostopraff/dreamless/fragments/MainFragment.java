@@ -1,5 +1,6 @@
 package ru.kostopraff.dreamless.fragments;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.leanback.app.BrowseSupportFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.DetailsOverviewRow;
+import androidx.leanback.widget.DividerRow;
 import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ListRow;
 import androidx.leanback.widget.ListRowPresenter;
@@ -18,6 +21,7 @@ import androidx.leanback.widget.OnItemViewSelectedListener;
 import androidx.leanback.widget.Presenter;
 import androidx.leanback.widget.Row;
 import androidx.leanback.widget.RowPresenter;
+import androidx.leanback.widget.SectionRow;
 
 import java.util.Objects;
 
@@ -47,10 +51,10 @@ public class MainFragment extends BrowseSupportFragment {
     }
 
     private void setupUIElements() {
-        //setTitle("Dreamless");
-        setBadgeDrawable(getResources().getDrawable(R.drawable.dreamless_badge));
-        setHeadersState(HEADERS_ENABLED);
-        setHeadersTransitionOnBackEnabled(true);
+        setTitle("Dreamless");
+        //setBadgeDrawable(getResources().getDrawable(R.drawable.dreamless_badge));
+        setHeadersState(HEADERS_HIDDEN);
+        setHeadersTransitionOnBackEnabled(false);
         setBrandColor(getResources().getColor(R.color.headers));
     }
 
@@ -69,6 +73,9 @@ public class MainFragment extends BrowseSupportFragment {
         gridRowAdapter.add("Мастер первоначальной настройки");
         gridRowAdapter.add("Start Dream");
         gridRowAdapter.add("Test error fragment");
+        gridRowAdapter.add("Dream settings");
+        mRowsAdapter.add(new SectionRow("Anything"));
+        mRowsAdapter.add(new DividerRow());
         mRowsAdapter.add(new ListRow(gridItemPresenterHeader, gridRowAdapter));
 
         /* set */
@@ -113,6 +120,14 @@ public class MainFragment extends BrowseSupportFragment {
                     startActivity(intentDream);
                 } else if (item == "Test error fragment"){
                     startActivity(new Intent(getContext(), ErrorActivity.class));
+                } else if (item == "Dream settings"){
+                    ComponentName name = new ComponentName("com.android.tv.settings",
+                            "com.android.tv.settings.device.display.daydream.DaydreamActivity");
+                    Intent i=new Intent(Intent.ACTION_MAIN)
+                            .addCategory(Intent.CATEGORY_LAUNCHER)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                            .setComponent(name);;
+                    startActivity(i);
                 }
             }
         }

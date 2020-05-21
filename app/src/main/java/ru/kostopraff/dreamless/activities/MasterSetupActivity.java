@@ -1,5 +1,6 @@
 package ru.kostopraff.dreamless.activities;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
