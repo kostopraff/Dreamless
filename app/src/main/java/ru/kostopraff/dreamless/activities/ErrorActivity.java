@@ -2,7 +2,6 @@ package ru.kostopraff.dreamless.activities;
 
 import android.os.Bundle;
 
-
 import androidx.fragment.app.FragmentActivity;
 
 import ru.kostopraff.dreamless.R;

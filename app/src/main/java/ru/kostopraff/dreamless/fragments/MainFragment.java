@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.leanback.app.BrowseSupportFragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
-import androidx.leanback.widget.DetailsOverviewRow;
 import androidx.leanback.widget.DividerRow;
 import androidx.leanback.widget.HeaderItem;
 import androidx.leanback.widget.ListRow;

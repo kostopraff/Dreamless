@@ -1,6 +1,5 @@
 package ru.kostopraff.dreamless.activities;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,15 +18,12 @@ import androidx.leanback.widget.GuidedAction;
 import com.vk.api.sdk.VK;
 import com.vk.api.sdk.auth.VKAccessToken;
 import com.vk.api.sdk.auth.VKAuthCallback;
-import com.vk.api.sdk.auth.VKScope;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import ru.kostopraff.dreamless.PicassoBackgroundManager;
 import ru.kostopraff.dreamless.R;
 
 public class MasterSetupActivity extends FragmentActivity {
@@ -271,6 +267,7 @@ public class MasterSetupActivity extends FragmentActivity {
                 case FORMATDATESHORTDAY:
                     mSharedPreferences.edit().putBoolean(getString(R.string.date), true)
                             .putString("FORMAT_DATE", getString(R.string.formatdateshortday)).apply();
+                    GuidedStepSupportFragment.add(Objects.requireNonNull(getFragmentManager()), new VkStepFragment());
                     break;
                 case FORMATDATESHORTDAYTHIN:
                     mSharedPreferences.edit().putBoolean(getString(R.string.date), true)
