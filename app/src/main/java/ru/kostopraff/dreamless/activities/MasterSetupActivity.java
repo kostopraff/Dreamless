@@ -18,9 +18,11 @@ import androidx.leanback.widget.GuidedAction;
 import com.vk.api.sdk.VK;
 import com.vk.api.sdk.auth.VKAccessToken;
 import com.vk.api.sdk.auth.VKAuthCallback;
+import com.vk.api.sdk.auth.VKScope;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -341,7 +343,7 @@ public class MasterSetupActivity extends FragmentActivity {
                 case ACTION_VK:
                     if(!VK.isLoggedIn()){
                         mSharedPreferences.edit().putBoolean("MASTER", true).apply();
-                        VK.login(Objects.requireNonNull(this.getActivity()));
+                        VK.login(Objects.requireNonNull(this.getActivity()), Collections.singleton(VKScope.OFFLINE));
                     }
                     else {
                         mSharedPreferences.edit().putBoolean("MASTER", true).apply();
